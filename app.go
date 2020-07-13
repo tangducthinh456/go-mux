@@ -40,6 +40,7 @@ func (a *App) getProduct(w http.ResponseWriter, r *http.Request) {
 	}
 
 	p := product{ID: id}
+	//fmt.Println("getProduct")
 	if err := p.getProduct(a.DB); err != nil {
 		switch err {
 		case sql.ErrNoRows:
@@ -66,6 +67,7 @@ func respondWithJSON(w http.ResponseWriter, code int, payload interface{}) {
 }
 
 func (a *App) getProducts(w http.ResponseWriter, r *http.Request) {
+	var p product
 	count, _ := strconv.Atoi(r.FormValue("count"))
 	start, _ := strconv.Atoi(r.FormValue("start"))
 
@@ -76,7 +78,7 @@ func (a *App) getProducts(w http.ResponseWriter, r *http.Request) {
 		start = 0
 	}
 
-	products, err := getProducts(a.DB, start, count)
+	products, err := p.getProducts(a.DB, start, count)
 	if err != nil {
 		respondWithError(w, http.StatusInternalServerError, err.Error())
 		return

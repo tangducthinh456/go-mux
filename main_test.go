@@ -5,12 +5,12 @@ package main
 import (
 	"bytes"
 	"encoding/json"
+	"log"
 	"net/http"
 	"net/http/httptest"
 	"os"
 	"strconv"
 	"testing"
-	"log"
 )
 
 var a App
@@ -25,9 +25,11 @@ func TestMain(m *testing.M){
 		//os.Getenv("APP_DB_NAME"),
 		//"postgres", "1", "postgres",
 	)
+	//fmt.Println("main test")
 	ensureTableExist()
 	code := m.Run()
 	clearTable()
+	//fmt.Println("main test")
 	os.Exit(code)
 }
 
@@ -77,7 +79,7 @@ func checkResponseCode(t * testing.T, expected, actual int)  {
 
 func TestGetNonExistentProduct(t *testing.T){
 	clearTable()
-	req,_ := http.NewRequest("GET", "/products/11", nil)
+	req,_ := http.NewRequest("GET", "/product/11", nil)
 	response := executeRequest(req)
 
 	checkResponseCode(t, http.StatusNotFound, response.Code)
