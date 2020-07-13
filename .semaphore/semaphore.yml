@@ -18,6 +18,8 @@ blocks:
       env_vars:
         - name: GOFLAGS
           value: '-mod=vendor'
+        - name: GO111MODULE
+          value: 'ON'
       agent:
         machine:
           type: e1-standard-2
@@ -33,6 +35,8 @@ blocks:
           value: postgres
         - name: APP_DB_PASSWORD
           value: ''
+        - name: GO111MODULE
+          value: 'ON'
       prologue:
         commands:
           - sem-version go 1.14
