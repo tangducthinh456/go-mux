@@ -8,7 +8,7 @@ blocks:
   - name: Test
     task:
       jobs:
-        - name: sem-service start postgres
+        - name: go test
           commands:
             - sem-version go 1.11
             - export GO111MODULE=on
@@ -18,7 +18,3 @@ blocks:
             - go get ./...
             - go test ./...
             - go build -v .
-      agent:
-        machine:
-          type: e1-standard-2
-          os_image: ubuntu1804
