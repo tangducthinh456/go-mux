@@ -16,10 +16,10 @@ blocks:
             - go mod vendor
             - 'cache store vendor-$SEMAPHORE_GIT_BRANCH-$(checksum go.mod),vendor-$SEMAPHORE_GIT_BRANCH,vendor-master vendor'
       env_vars:
-        - name: 'GOFLAGS '
-          value: '-mod=vendor'
         - name: GO111MODULE
           value: 'ON'
+        - name: GOFLAGS
+          value: '-mod=vendor'
       agent:
         machine:
           type: e1-standard-2
