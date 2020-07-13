@@ -22,9 +22,19 @@ blocks:
         machine:
           type: e1-standard-2
           os_image: ubuntu1804
+      prologue:
+        commands:
+          - sem-version go 1.14
+          - sem-service start postgres
+          - checkout
+          - 'cache restore vendor-$SEMAPHORE_GIT_BRANCH-$(checksum go.mod),vendor-$SEMAPHORE_GIT_BRANCH,vendor-master'
+          - go mod vendor
+          - source env-sample
   - name: Test
     task:
       env_vars:
+        - name: GO111MODULE
+          value: 'ON'
         - name: GOFLAGS
           value: '-mod=vendor'
         - name: APP_DB_NAME
@@ -35,7 +45,7 @@ blocks:
           value: ''
       prologue:
         commands:
-          - sem-version go 1.13
+          - sem-version go 1.14
           - sem-service start postgres
           - checkout
           - 'cache restore vendor-$SEMAPHORE_GIT_BRANCH-$(checksum go.mod),vendor-$SEMAPHORE_GIT_BRANCH,vendor-master'
