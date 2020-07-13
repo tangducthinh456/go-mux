@@ -19,7 +19,7 @@ blocks:
         - name: GOFLAGS
           value: '-mod=vendor'
         - name: GO111MODULE
-          value: 'ON'
+          value: 'on'
       agent:
         machine:
           type: e1-standard-2
